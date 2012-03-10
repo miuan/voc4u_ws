@@ -1,5 +1,5 @@
-//var SERVER = "http://voc4u9.appspot.com"
-var SERVER = "http://localhost:9999"
+var SERVER = "http://voc4u9.appspot.com"
+//var SERVER = "http://localhost:9999"
 
 function wordVote(id) {
 
@@ -486,14 +486,16 @@ function updateWordsCore()
 	
 	var addr = SERVER + "/wordctrl"; 
 	
-	$.getJSON(addr, data,
-	// $.getJSON("template/test.html",
-			function(data2)
-			{
-			
-			updateWordsCoreDone(data2);
-				
-			});
+	request(addr, data, updateWordsCoreDone);
+	
+//	$.getJSON(addr, data,
+//	// $.getJSON("template/test.html",
+//			function(data2)
+//			{
+//			
+//			updateWordsCoreDone(data2);
+//				
+//			});
 //$.get(SERVER + "/wordctrl", data,
 //function(data)
 //			{
@@ -501,6 +503,50 @@ function updateWordsCore()
 //});
 }
 
+
+function request(addr, data, func)
+{
+	if($.browser.msie && window.XDomainRequest)
+	{
+		var xdr = new XDomainRequest();
+        
+        xdr.onload = function() {
+            // XDomainRequest doesn't provide responseXml, so if you need it:
+           /*  var dom = new ActiveXObject("Microsoft.XMLDOM");
+            dom.async = false;
+            dom.loadXML(xdr.responseText); */
+            //dom.async = false;
+        	var json = $.parseJSON(xdr.responseText); 
+        	func(json);
+        };
+        xdr.error= function()
+        {
+        	alert("xdr error");
+        }
+        
+        if(data != null)
+        {
+        	var selector = "?";
+        	for(var i in data) 
+        	{
+        		addr += selector + i + "="+ data[i];
+        		selector = "&";
+        	}
+        }
+        
+        xdr.open("get", addr);
+        xdr.send();
+	}
+	else
+	{
+	$.getJSON(addr, data,
+			// $.getJSON("template/test.html",
+			function(data2)
+			{		
+				func(data2);		
+			});
+	}
+}
 
 function changeGroup(group)
 {

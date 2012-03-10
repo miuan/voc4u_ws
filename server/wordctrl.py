@@ -147,6 +147,7 @@ class WordCtrl(webapp.RequestHandler):
     def methodGetLastUpdatedWords(self, learnCode, nativeCode, type):
         #json = self.methodGetWordsFromDB(learnCode, nativeCode, type, 0, True)
         self.response.headers['Access-Control-Allow-Origin'] = '*'
+        self.response.headers['Content-Type'] = 'application/xml'
         
         key = self.generateCodeForLastUpdateCache(learnCode, nativeCode)
         
@@ -187,6 +188,8 @@ class WordCtrl(webapp.RequestHandler):
                 self.response.out.write("ja nevim")
         
         self.response.headers['Access-Control-Allow-Origin'] = '*'
+        self.response.headers['Access-Control-Allow-Methods'] = 'POST, GET'
+        self.response.headers['Content-Type'] = 'application/xml'
         self.response.out.write(json)
 
 

@@ -21,23 +21,22 @@
 <script>
 
 
-$(document).ready(
+/* $(document).ready(
 		function() {
 			setup();
-		});
-	$(document).ready1(
+		}); */
+	$(document).ready(
 			function() {
 				//alert("Data Loaded: ");
 				//setup();
-				data = { 
+				var data = { 
 					m: "show",
 					lc: "CZ",
 					nc: "EN",
 					t: "json",
-					p:3
-			};
+					p:3};
 			
-			var SERVER = "http://localhost:9999";
+			var SERVER = "http://voc4u9.appspot.com";
 			var addr = SERVER + "/wordctrl"; 
 			
 			jQuery.support.cors = true;
@@ -55,7 +54,7 @@ $(document).ready(
 				  }
 				}); */
 			
-			 $.getJSON(addr, data,
+			 /* $.getJSON(addr, data,
 			// $.getJSON("template/test.html",
 					function(data2)
 					{
@@ -63,9 +62,31 @@ $(document).ready(
 						alert("Data Loaded: " + data2);
 						
 					}).success(function() { alert("second success"); })
-					.error(function() { alert("error"); })
-				 	.complete(function() { alert("complete"); });
+					.error(function(r,w,c) { alert("error ["+w+"] ("+c+")"); })
+				 	.complete(function() { alert("complete"); });  */
+			 
+			 if ($.browser.msie && window.XDomainRequest) {
+		            // Use Microsoft XDR
+		            var xdr = new XDomainRequest();
+		           
+		            xdr.onload = function() {
+		                // XDomainRequest doesn't provide responseXml, so if you need it:
+		               /*  var dom = new ActiveXObject("Microsoft.XMLDOM");
+		                dom.async = false;
+		                dom.loadXML(xdr.responseText); */
+		                //dom.async = false;
+		            	alert(xdr.responseText);
+		            };
+		            xdr.error= function()
+		            {
+		            	alert("xdr error");
+		            }
+		            xdr.open("get", "http://voc4u9.appspot.com/wordctrl?m=show");
+		            xdr.send();
+		        }
 			});
+				
+			
 			
 </script>
 
