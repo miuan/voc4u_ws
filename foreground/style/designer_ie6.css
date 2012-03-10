@@ -1,0 +1,7 @@
+html { overflow-y: hidden; }
+body { overflow-y: auto; }
+
+img#bg { position:absolute; z-index:-1; }
+
+#content_data { position:static; }
+

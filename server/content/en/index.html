@@ -1,0 +1,184 @@
+<html>
+
+<!-- http://api.jquery.com/jQuery.get/ -->
+<link rel="stylesheet" type="text/css" href="/styles/test.css" />
+<link rel="stylesheet" type="text/css" href="/styles/words.css" />
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/words.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script> -->
+
+<script>
+
+learnSelectCode = '';
+nativeSelectCode = '';
+
+function highlingSelected(id, selected, noSelected)
+{
+	oldSelect = $("."+ selected);
+	oldSelect.removeClass(selected);
+	oldSelect.addClass(noSelected);
+	
+	link = $(id);
+	link.removeClass(noSelected);
+	link.addClass(selected); 
+}
+
+
+
+function setTo(id, code, otherid)
+{
+	
+	highlingSelected(id, "langLearnSelected", "langLearn");
+	
+	prev = learnSelectCode;
+	learnSelectCode = code;
+	
+	$('#langLearnV').val(code); 
+	
+	if(nativeSelectCode == code)
+	{
+		if(code == "EN")
+		{
+			code = "CZ";
+		}
+		else
+		{
+			code = "EN"
+		}
+		
+		setFrom('#'+otherid+code, code, '');
+	}
+	
+	refreshWords();
+}
+
+function setFrom(id, code, otherid)
+{
+	highlingSelected(id, "langNativeSelected", "langNative" );
+	nativeSelectCode = code;
+	
+	$('#langNativeV').val(code); 
+	
+	if(learnSelectCode == code)
+	{
+		if(code == "EN")
+		{
+			code = "CZ";
+		}
+		else
+		{
+			code = "EN"
+		}
+		
+		setTo('#'+otherid+code, code, '');
+	}
+	
+	
+	refreshWords();	
+}
+
+
+
+
+
+function refreshWords()
+{
+	data = 
+	{ 
+			m: "show",
+			lc: learnSelectCode,
+			nc: nativeSelectCode,
+			t: "json"
+	};
+	$.getJSON("/wordctrl", data,
+			function(data)
+			{
+			
+			//
+				showWords(data);
+			//showWords('#words', data);
+			//$('body').append(data);
+				   //  alert("Data Loaded: " + data);
+			});
+}
+
+function setup()
+{
+	setTo('#langLearnEN', 'EN');
+	setFrom('#langNativeCZ', 'CZ');
+	
+	refreshWords();
+	/* $("#link_to_CZ").click(function(event){
+		   event.preventDefault();
+		   $(this).hide("slow");
+	}); */
+}
+
+
+$(document).ready(function()
+		{
+	setup();
+/* $("a").click(function(event){
+	   event.preventDefault();
+	   $(this).hide("slow");
+	 }); */
+});
+
+
+</script>
+
+<body>
+	<p>Accept language : {{ url }} :
+	<p>
+	 
+	 <p>
+	<div id="content1">
+	<form action="/wordctrl" method="get">
+	<div id="k">
+	<h2>Learn:</h2>
+	<div>{{ url_linktext }}</div>
+		 
+		<div><input type="text" name="l" size="20" value="hello"></div>
+		<div><input type="text" name="lp" size="20" value="pronouciation"></div>
+		<div><input type="text" name="ld" size="20" value="desc"></div>
+		<div><input type="text" name="ls" size="20" value="special"></div>
+	</div>
+	<div class="left">
+	<h2>Native:</h2>
+	<div>
+	
+		{{ url_linktext2 }}
+		<div><input type="text" name="n" size="20" value="ahoj"></div>
+		<div><input type="text" name="np" size="20" value="pronouciation"></div>
+		<div><input type="text" name="nd" size="20" value="desc"></div>
+		<div><input type="text" name="ns" size="20" value="special"></div>
+		</div>
+	</div>
+			<input type="hidden" name="m" value="add">
+			<input type="hidden" name="lc" id="langLearnV" value="EN"> 
+			<input type="hidden" name="nc" id="langNativeV" value="CZ">
+		<div>
+			<input type="button" value="Add word" onClick="javascript:addWord(this.form);">
+		</div>
+	</form>
+
+	<form action="/wordctrl" method="get">
+		<input type="text" name="s" size="20" value="hello"> 
+		<input type="hidden" name="m" value="trans">
+		<input type="hidden" name="f" value="EN">
+		<input type="hidden" name="t" value="CS">
+		<div>
+			<input type="submit" value="translate">
+		</div>
+	</form>
+</div>
+
+<div  id="feedback">
+</div>
+
+<div  id="words">
+</div>
+	<a href="init">INIT</a>
+</body>
+</html>

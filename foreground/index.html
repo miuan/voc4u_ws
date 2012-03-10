@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Vocabulary application for Android and Bada">
+<meta name="keywords"
+	content="Android, Bada, Slovníček, slovník, slovíčka Česko - Anglický, slovíčka Česko - Německá, slovíčka Česko - Francouzská, slovíčka Česko - Španělská, slovíčka Česko - Italská, slovíčka Česko - Polská, slovíčka Česko - Portugalská. French - English Vocabulary, English - Czech Vocabulary, English - French Vocabulary, English - Spanish Vocabulary, English - Italian Vocabulary, English - Polish Vocabulary, English - Portuguese Vocabulary. Français - Anglais Dictionnaire, Français - tchèque Dictionnaire, Allemagne - françai Dictionnaire , français - espagnol Dictionnaire, français - italien Dictionnaire, français - polonais Dictionnaire, français - portugais Dictionnaire. Deutschland - Englisch Wörterbuch, Deutschland - Tschechische Wörterbuch, Deutschland - Französisch Wörterbuch, Deutschland - Spanish Wörterbuch, Deutschland - Italienische Wörterbuch, Deutschland - Polnisch Wörterbuch, Deutschland - Portugiesisch Wörterbuch.">
+<meta name="author" content="Milan Medlik">
+<meta name="ROBOTS" content="index, follow">
+<!-- <link href="style/main.css" rel="stylesheet" type="text/css" /> -->
+<link href="style/index.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/designer.js"></script>
+<script src="js/words.js"></script>
+<title>Voc4u</title>
+</head>
+
+
+<script>
+	$(document).ready(
+			function() {
+				setup();
+				showAddWordForm();
+				window.navigator.language = "de";
+				var language = window.navigator.userLanguage
+						|| window.navigator.language;
+				//alert(language);
+				/* $("a").click(function(event){
+				 event.preventDefault();
+				 $(this).hide("slow");
+				 }); */
+			});
+</script>
+
+<body>
+
+
+	<div id="content_data">
+	<h1>About</h1>
+		<div>Voc4u is application for smartphones with operating system
+			Android and Bada (we also plan go to the another platforms). It is
+			simple (<a href="howisworks.html">see to how it's works</a>) vocabulary for learning words in cross languages. Now you can
+			learn Czech, English, France, German, Italian, Spain, Poland and
+			Portugal. Visit the markets and download the application to your smartphone for
+			free ;-)</div>
+		
+		<div id="markets">
+			<div id="androidmarket">
+				<a href="https://market.android.com/details?id=com.voc4u"
+					alt="voc4u on android market"> <img
+					src="img/bg_android_market.gif" /></a>
+			</div>
+
+			<div id="samsungmarket">
+				<a
+					href="http://www.samsungapps.com/topApps/topAppsDetail.as?productId=G00003790767"
+					alt="voc4u on samsung market"><img
+					src="http://img.samsungapps.com/marketing/common/images/logo_on.gif" /></a>
+			</div>
+		</div>
+		<div class="notice">Main andvantage for Voc4u is: only two buttons for learning, "know" and "don't know" buttons which you mark as "don't know" will be show more fruequently to you, and otherwise words marked as "know" once total disapear.</div>
+		<h1>Vocabulary</h1>
+		<div>Actualy we working on improve the vocabulary database for
+			better learning. Becose we know some word which we use haven't good
+			translate. And we want add another language as is Turkish, China,
+			Korean, ... So we will be glade when you could help us! The form
+			bellow is for adding and editing our words.</div>
+<div id="vocabulary_form"></div>	
+		<div>And next step which we plan will be improve our mobile
+			application for getting the words from internet. We plan also each
+			user can make yourself vocabulary for learning exactly what they want.
+			</div>
+
+		
+	</div>
+</body>
+</html>

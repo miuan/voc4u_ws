@@ -1,0 +1,59 @@
+<div class="add_word">
+<form id="form_add_word" action="/wordctrl" method="get">
+	
+	<div>
+	<div id="add_word_learn">
+		<h2>Learn</h2>
+		<div>
+		<div class="add_word_form_selector"  id="add_word_form_learn"></div>
+		</div>
+		<div class="clear"></div>
+		<div class="add_word_form_input_text">
+			<input type="text" name="l" size="30" maxlength="50" id="form_add_word_l" value="hello">
+		</div>
+		<!-- <div>
+			<input type="text" name="lp" size="20" value="pronouciation">
+		</div>
+		<div>
+			<input type="text" name="ld" size="20" value="desc">
+		</div>
+		<div>
+			<input type="text" name="ls" size="20" value="special">
+		</div> -->
+	</div>
+	<div id="add_word_native">
+		<h2>Native</h2>
+		<div>
+<div>
+<div class="add_word_form_selector" id="add_word_form_native"></div>
+</div>
+<div class="clear"></div>
+			<div class="add_word_form_input_text">
+				<input type="text" name="n" size="30" maxlength="50" id="form_add_word_n" value="ahoj">
+			</div>
+			<!-- <div>
+				<input type="text" name="np" size="20" value="pronouciation">
+			</div>
+			<div>
+				<input type="text" name="nd" size="20" value="desc">
+			</div>
+			<div>
+				<input type="text" name="ns" size="20" value="special">
+			</div> -->
+		</div>
+		
+	</div>
+	<div id="add_word_button" onClick="javascript:addWord(this);">
+		Add word
+	</div>
+	<div id="add_word_progress">
+	<img src="img/loader_small_black.gif"/>
+	Adding...
+	</div>
+	<div class="clear"></div>
+	<input type="hidden" name="m" value="add"> 
+	<input type="hidden" name="lc" id="form_add_word_lc" value="EN">
+	<input type="hidden" name="nc" id="form_add_word_nc" value="CZ">
+	</div>
+</form>
+</div>

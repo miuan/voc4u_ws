@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Vocabulary application for Android and Bada">
+<meta name="keywords"
+	content="Android, Bada, Slovníček, slovník, slovíčka Česko - Anglický, slovíčka Česko - Německá, slovíčka Česko - Francouzská, slovíčka Česko - Španělská, slovíčka Česko - Italská, slovíčka Česko - Polská, slovíčka Česko - Portugalská. French - English Vocabulary, English - Czech Vocabulary, English - French Vocabulary, English - Spanish Vocabulary, English - Italian Vocabulary, English - Polish Vocabulary, English - Portuguese Vocabulary. Français - Anglais Dictionnaire, Français - tchèque Dictionnaire, Allemagne - françai Dictionnaire , français - espagnol Dictionnaire, français - italien Dictionnaire, français - polonais Dictionnaire, français - portugais Dictionnaire. Deutschland - Englisch Wörterbuch, Deutschland - Tschechische Wörterbuch, Deutschland - Französisch Wörterbuch, Deutschland - Spanish Wörterbuch, Deutschland - Italienische Wörterbuch, Deutschland - Polnisch Wörterbuch, Deutschland - Portugiesisch Wörterbuch.">
+<meta name="author" content="Milan Medlik">
+<meta name="ROBOTS" content="index, follow">
+<!-- <link href="style/main.css" rel="stylesheet" type="text/css" /> -->
+<link href="style/howisworks.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/designer.js"></script>
+
+<title>Voc4u</title>
+</head>
+
+
+
+<script>
+
+
+$(document).ready(
+		function() {
+			setup();
+		});
+	$(document).ready1(
+			function() {
+				//alert("Data Loaded: ");
+				//setup();
+				data = { 
+					m: "show",
+					lc: "CZ",
+					nc: "EN",
+					t: "json",
+					p:3
+			};
+			
+			var SERVER = "http://localhost:9999";
+			var addr = SERVER + "/wordctrl"; 
+			
+			jQuery.support.cors = true;
+			/* $.ajax({
+				  url: addr,
+				  context: document.body,
+				  type:"get",
+				  cache:false,
+				  dataType: "text",
+				  error: function(request,status, error){
+					  alert("error"+error);
+				  },
+				  success: function(){
+					  alert("done");
+				  }
+				}); */
+			
+			 $.getJSON(addr, data,
+			// $.getJSON("template/test.html",
+					function(data2)
+					{
+					
+						alert("Data Loaded: " + data2);
+						
+					}).success(function() { alert("second success"); })
+					.error(function() { alert("error"); })
+				 	.complete(function() { alert("complete"); });
+			});
+			
+</script>
+
+<body>
+
+</body>
+</html>

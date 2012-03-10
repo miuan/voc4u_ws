@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Vocabulary application for Android and Bada">
+<meta name="keywords"
+	content="Android, Bada, Slovníček, slovník, slovíčka Česko - Anglický, slovíčka Česko - Německá, slovíčka Česko - Francouzská, slovíčka Česko - Španělská, slovíčka Česko - Italská, slovíčka Česko - Polská, slovíčka Česko - Portugalská. French - English Vocabulary, English - Czech Vocabulary, English - French Vocabulary, English - Spanish Vocabulary, English - Italian Vocabulary, English - Polish Vocabulary, English - Portuguese Vocabulary. Français - Anglais Dictionnaire, Français - tchèque Dictionnaire, Allemagne - françai Dictionnaire , français - espagnol Dictionnaire, français - italien Dictionnaire, français - polonais Dictionnaire, français - portugais Dictionnaire. Deutschland - Englisch Wörterbuch, Deutschland - Tschechische Wörterbuch, Deutschland - Französisch Wörterbuch, Deutschland - Spanish Wörterbuch, Deutschland - Italienische Wörterbuch, Deutschland - Polnisch Wörterbuch, Deutschland - Portugiesisch Wörterbuch.">
+<meta name="author" content="Milan Medlik">
+<meta name="ROBOTS" content="index, follow">
+<link href="style/vocabulary.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/designer.js"></script>
+<script src="js/words.js"></script>
+<title>Voc4u</title>
+</head>
+
+
+<script>
+	$(document).ready(
+			function() {
+				setup();
+				showAddWordForm();
+				prepareWordsWindow();
+				// todo remember the latest group
+				$('#navigate_group_0').click();
+				//$('#vocabulary_form').css("margin-top", "-50px");
+				
+				//$('#content').hide();
+			});
+</script>
+
+
+
+<body>
+
+<div id="content_data">
+<div id="vocabulary_form"></div>	
+<!-- <div id="feedback">
+</div> -->
+<div class="clear"></div>
+<div id="navigate_groups">
+<span id="navigate_group_0" onClick="javascript:changeGroup(0);">Elementary</span><span id="navigate_group_1" onClick="javascript:changeGroup(1);">Pre-Intermediate</span><span id="navigate_group_2" onClick="javascript:changeGroup(2);">Intermediate</span><span id="navigate_group_latest" onClick="javascript:changePage(-1);">Latest-Update</span>
+</div>
+<div class="clear"></div>
+<div id="words_w">
+<div id="words_empty">On this group and position, we hevn't any word, help us! :-)</div>
+<div class="loading" id="words">
+
+</div>
+</div>
+<div id="words_navigate">
+
+</div>
+</div>
+
+
+</body>
+</html>

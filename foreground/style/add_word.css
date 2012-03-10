@@ -1,0 +1,169 @@
+#vocabulary_form
+{
+	marigin-bottom:30px;
+	
+}
+
+.add_word
+{
+	background-image:url("../img/bg_add_word_form.gif");
+	margin:5px;
+	padding:4px;
+	margin-left:-3px;
+	border-width:1px;
+	border-style: solid;
+	border-color:Gray;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+}
+
+#add_word_button
+{
+	background-color:white;
+	margin:0px;
+	margin-left:-140px;
+	padding:3px;
+	font-weight:bold;
+	border-width:1px;
+	border-style: solid;
+	border-color:Gray;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float:right;
+	cursor:pointer;
+}
+.add_word h2
+{
+	margin:0px;
+	margin-bottom:12px;
+	color:White;
+}
+
+#add_word_learn, #add_word_native
+{
+	float:left;
+	width:292px;
+}
+
+#add_word_learn
+{
+	margin-right:4px;
+}
+
+.add_word_form_selector
+{
+	margin-top:8px;
+	margin-bottom:10px;	
+}
+
+.add_word_form_button_learn, .add_word_form_button_native
+{
+	cursor: pointer;
+	
+	color:black;
+	margin:1px;
+	height:35px;
+	padding:2px;
+	font-size: 9pt;
+	font-weight: bold;
+	
+	
+	border-width:1px;
+	border-style: solid;
+	border-color:black;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+	float:left;
+}
+
+
+.add_word_form_button_learn:hover, .add_word_form_button_native:hover
+{
+	color:white;
+	border-color: white;
+}
+
+.add_word_form_button_learn div, .add_word_form_button_native div
+{
+	padding:2px;
+	padding-bottom:0px;
+}
+
+.add_word_form_button_learn img, .add_word_form_button_native img
+{
+	width:19px;
+	padding:0px;
+	border-color:Black;
+	border-style:solid;
+	border-width:1px;
+}
+
+.add_word_form_button_learn:hover img, .add_word_form_button_native:hover img
+{
+	border-color:white;
+	
+}
+
+.add_word_form_button_select
+{
+	color:Black;
+	background-color: White;
+	border-color:Black;
+}
+
+.add_word_form_button_select:hover
+{
+	color:darkgreen;
+	border-color:darkGreen;
+}
+
+#add_word_progress
+{
+	float:right;
+	color:White;
+	display:none;
+	font-style: italic;
+	margin-right:10px;
+	margin-left:-140px;
+}
+
+#add_word_progress img
+{
+	height:20px;
+}
+
+.add_word_form_input_text
+{
+	margin:2px;
+	margin-top:4px;
+	background-color:white;
+	padding:2px;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border-color:White;
+	border-width:2px;
+	border-top-color: gray;
+	
+	border-style:solid;
+}
+
+.clear 
+{
+    width: 100%;
+    clear: both !important;
+    display: inline-block;
+}
+
+input
+{
+	border-style:none;
+	
+}
+

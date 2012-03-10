@@ -1,0 +1,42 @@
+.left
+{
+	/* float:right; */
+	/* background-color:black; */
+}
+
+#content1
+{
+	width:700px;
+}
+
+#k
+{
+	float:left;
+	/* background-color:blue; */
+	width:50%;
+}
+.langLearn, .langNative, .langLearnSelected , .langNativeSelected 
+{
+	padding:7px;
+	font-size:small;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+.langLearn, .langNative
+{
+	
+	color:#000;
+	background-color:#FFF;
+	
+	
+}
+
+
+.langLearnSelected , .langNativeSelected 
+{
+	color:#FFF;
+	background-color:#0000FF;
+	
+}
+

@@ -1,0 +1,48 @@
+.word, .word_bordered
+{
+	
+}
+
+.word_bordered
+{
+	border: 1px solid blue
+}
+
+.word_row , .word_row_selected
+{
+	color:#0F0;
+	background-color:#fff;
+}
+
+.word_row_selected
+{
+	background-color:#f0f;
+}
+
+ a.word_detail:visited,   a.word_detail:link,   a.word_detail:active,   a.word_detail:hover
+{
+	color:#000;
+	text-decoration:none;
+}
+
+.word .pronouc, .word .spec
+{
+	/*background-color:black;*/
+	font-size:small;
+	font-style:italic;
+}
+
+.word .pronouc
+{
+	color:silver;	
+}
+
+.word .spec
+{
+	color:red;
+}
+
+.native_detail_vote_down, .native_detail_vote_up
+{
+	cursor:pointer;
+}
