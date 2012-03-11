@@ -7,6 +7,7 @@ Created on 16.1.2012
 from word import *
 from xmlrpclib import DateTime
 from datetime import datetime
+from google.appengine.api import memcache
 
 class WordCore():
     def addword(self, Word):
@@ -81,10 +82,29 @@ class WordCore():
 
     def getLangIdFromCode(self, learnCode):
         
-        lang = LangId.all(keys_only=True).filter("code =", learnCode)
-        #lang.get()
-        lang = lang.fetch(1)
-        return lang[0]
+        if learnCode == "CS":
+            learnCode = "CZ"
+        elif learnCode == "SP":
+            learnCode = "ES"
+        
+        code = "getLangIdFromCode_" + learnCode
+        
+        lang = memcache.get(code)
+        if not lang:
+            lang = LangId.all(keys_only=True).filter("code =", learnCode)
+            #lang.get()
+            lang = lang.fetch(1)
+
+            if len(lang) > 0:
+                lang = lang[0]
+            else:
+                return False
+            
+            if not memcache.add(code, lang, 7 * 24* 3600):
+                memcache.set(code, lang)
+        
+        
+        return lang
 
 
     # switch the word1code and word2code by alphabet
@@ -112,7 +132,15 @@ class WordCore():
         w1c, w2c, word1, word2 = self.ResortLearnAndNativeCode(word1Code, word2Code, word1a, word2a)
         
         w1l = self.getLangIdFromCode(w1c)
+        
+        if not w1l:
+            return False, "first code is wrong (" + w1c +")" , 2
+        
         w2l = self.getLangIdFromCode(w2c)
+        
+        if not w2l:
+            return False, "second code is wrong (" + w2c +")", 3
+        
         word1 = word1.strip()
         word2 = word2.strip()
         
@@ -172,8 +200,9 @@ class WordCore():
                 word.word1Code = w1l
                 word.word2Code = w2l
                 word.save()
-                
-        return True, word.key()
+
+        # success, id (of added or updated word), error code
+        return True, word.key(), 0
     
     def getWord(self, key):
         

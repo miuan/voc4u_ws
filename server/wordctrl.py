@@ -112,12 +112,14 @@ class WordCtrl(webapp.RequestHandler):
         
         if len(strl) > 0 and len(strn) > 0:
             wc = core.WordCore()
-            result, key = wc.addWord(strl, strn, strlc, strnc, strlp, strld, strls, strnp, strnd, strns)
+            result, key, errorcode = wc.addWord(strl, strn, strlc, strnc, strlp, strld, strls, strnp, strnd, strns)
             
             if result:
                 if nocache != 1:
                     self.writeToLastUpdateCache(key, strlc, strnc)                    
-                self.showResult("word", str(key))    
+                self.showResult("word", str(key))  
+            elif isinstance(key, str) and isinstance(errorcode, int):
+                  self.showErrorResult(errorcode, key)
             else:
                 self.showErrorResult(1, "word is not stored or updated")
 #            self.response.headers['Access-Control-Allow-Origin'] = '*'
