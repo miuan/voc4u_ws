@@ -127,25 +127,11 @@ class WordCore():
         return str(w1c), w2c, word1, word2
 
 
-    def addWord(self, word1a, word2a, word1Code, word2Code, pronouc1, desc1, spec1, pronouc2, desc2, spec2):
-        
-        w1c, w2c, word1, word2 = self.ResortLearnAndNativeCode(word1Code, word2Code, word1a, word2a)
-        
-        w1l = self.getLangIdFromCode(w1c)
-        
-        if not w1l:
-            return False, "first code is wrong (" + w1c +")" , 2
-        
-        w2l = self.getLangIdFromCode(w2c)
-        
-        if not w2l:
-            return False, "second code is wrong (" + w2c +")", 3
-        
+
+    def addWordCore(self, word1Code, pronouc1, desc1, spec1, pronouc2, desc2, spec2, w1c, w2c, word1, word2, w1l, w2l):
         word1 = word1.strip()
         word2 = word2.strip()
-        
         if w1c == word1Code:
-            
             lpronouc = pronouc1.strip()
             ldesc = desc1.strip()
             lspec = spec1.strip()
@@ -153,39 +139,30 @@ class WordCore():
             ndesc = desc2.strip()
             nspec = spec2.strip()
         else:
-            
             lpronouc = pronouc2.strip()
             ldesc = desc2.strip()
             lspec = spec2.strip()
             npronouc = pronouc1.strip()
             ndesc = desc1.strip()
             nspec = spec1.strip()
-
         loadedLearn, learn_ent = self.createOrLoadWordEntity(word1, w1l, lpronouc, ldesc)
-        
-        #if loaded:
-        #    learn_ent.lang = native_lang    
-        # get or save
+    #if loaded:
+    #    learn_ent.lang = native_lang
+    # get or save
         loadedNative, native_ent = self.createOrLoadWordEntity(word2, w2l, npronouc, ndesc)
-        
-        if not loadedLearn or not loadedNative: 
+        if not loadedLearn or not loadedNative:
             word = Word(vote=100)
-            
             word.word1 = learn_ent
             word.word2 = native_ent
-            
             word.word1LangId = w1l
-            word.word1Lang = w1c;
-            
+            word.word1Lang = w1c
             word.word2LangId = w2l
-            word.word2Lang = w2c;
-            
+            word.word2Lang = w2c
             word.special1 = lspec
             word.special2 = nspec
-            
             word.save()
         else:
-            words = Word.all();
+            words = Word.all()
             words.filter("word1 =", learn_ent)
             words.filter("word2 =", native_ent)
             word = words.fetch(1)
@@ -200,9 +177,41 @@ class WordCore():
                 word.word1Code = w1l
                 word.word2Code = w2l
                 word.save()
+        return word
+
+    def addWord(self, word1a, word2a, word1Code, word2Code, pronouc1, desc1, spec1, pronouc2, desc2, spec2):
+        
+        w1c, w2c, word1, word2 = self.ResortLearnAndNativeCode(word1Code, word2Code, word1a, word2a)
+        
+        w1l = self.getLangIdFromCode(w1c)
+        
+        if not w1l:
+            return False, "first code is wrong (" + w1c +")" , 2
+        
+        w2l = self.getLangIdFromCode(w2c)
+        
+        if not w2l:
+            return False, "second code is wrong (" + w2c +")", 3
+        
+        words_arr1 = str(word1).split("|")
+        if len(words_arr1) < 1:
+            words_arr1 = [word1]
+        words_arr2 = str(word2).split("|")
+        if len(words_arr2) < 1:
+            words_arr2 = [word2]
+        
+        result_words = []
+        
+        for word_item1 in words_arr1:
+            for word_item2 in words_arr2:
+                result_words.append(self.addWordCore(word1Code, pronouc1, desc1, spec1, pronouc2, desc2, spec2, w1c, w2c, word_item1, word_item2, w1l, w2l))
+
+        keys = []
+        for result in result_words:
+            keys.append(str(result.key()))
 
         # success, id (of added or updated word), error code
-        return True, word.key(), 0
+        return True, keys, 0
     
     def getWord(self, key):
         

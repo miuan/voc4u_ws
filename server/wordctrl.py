@@ -40,7 +40,8 @@ class WordCtrl(webapp.RequestHandler):
         
         if not memcache.add(cachecode, json):
             memcache.set(cachecode, json)
-            
+    
+    # key is string
     def writeToLastUpdateCache(self, key, learnCode, nativeCode):
         CACHEMAX = 35
         cachecode = self.generateCodeForLastUpdateCache(learnCode, nativeCode, True)
@@ -52,7 +53,7 @@ class WordCtrl(webapp.RequestHandler):
         position = 0
         found = False
         for w in data:
-            tid = key.id()
+            tid = key
             mid = w["id"]
             if mid == tid:
                 found = True
@@ -112,12 +113,17 @@ class WordCtrl(webapp.RequestHandler):
         
         if len(strl) > 0 and len(strn) > 0:
             wc = core.WordCore()
-            result, key, errorcode = wc.addWord(strl, strn, strlc, strnc, strlp, strld, strls, strnp, strnd, strns)
+            result, keys, errorcode = wc.addWord(strl, strn, strlc, strnc, strlp, strld, strls, strnp, strnd, strns)
             
             if result:
                 if nocache != 1:
-                    self.writeToLastUpdateCache(key, strlc, strnc)                    
-                self.showResult("word", str(key))  
+                    self.writeToLastUpdateCache(keys[0], strlc, strnc)  
+                
+                str_keys = ""
+                for key in keys:
+                    str_keys = str_keys + " " + key              
+                
+                self.showResult("word", str_keys.lstrip())  
             elif isinstance(key, str) and isinstance(errorcode, int):
                   self.showErrorResult(errorcode, key)
             else:
