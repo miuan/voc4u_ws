@@ -219,7 +219,51 @@ class WordCore():
 #        words.filter(condition1, w1c)
 #        words.filter(condition2, w2c)
     
+    def deleteByWords(self, word1a, word2a, word1Code, word2Code):
+        w1c, w2c, word1, word2 = self.ResortLearnAndNativeCode(word1Code, word2Code, word1a, word2a)
+        
+        w1l = self.getLangIdFromCode(w1c)
+        
+        if not w1l:
+            return False, "first code is wrong (" + w1c +")" , 2
+        
+        w2l = self.getLangIdFromCode(w2c)
+        
+        if not w2l:
+            return False, "second code is wrong (" + w2c +")", 3
+        
+        we1 = self.entityLoadByParams(word1, w1l,"")
+        
+        we2 = self.entityLoadByParams(word2, w2l,"")
+         
+        word = Word.all(keys_only=False)
+        word.filter("word1 =", we1[0])
+        word.filter("word2 =", we2[0])
+        word = word.fetch(1)
+        
+        self.deleteByObject(word[0])
+        
+        return True, "", ""
     
+    def deleteByKey(self, key):
+        try:
+            word = Word.get(key)
+            self.deleteByObject(word)
+            
+        except db.BadKeyError:
+            return False, 1, "given key:'" + key + "' is not valid"
+        
+        return True, "", ""
+        
+    def deleteByObject(self, word):
+        word.vote = word.vote - 1
+        
+        if word.vote < 1:
+            db.delete([word])
+        else:
+            word.save()
+            
+        return True
         
     def getWords(self, learnCode, nativeCode, startpos=0,lastUpdated=False):
         PAGESIZE = 30

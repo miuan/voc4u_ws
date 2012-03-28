@@ -345,18 +345,34 @@ class WordCtrl(webapp.RequestHandler):
         self.response.out.write(json.dumps(show))
 
     def showErrorResult(self, error, error_message):
-        self.showResultEx(None, None, error, error_message)
+        self.showResultEx(None, None, int(error), error_message)
     
     def showResult(self, data_name, data):
-        self.showResultEx(data_name, data, "0", "ok")
+        self.showResultEx(data_name, data, 0, "ok")
     
-    def methodWordRemove(self):
-        id = self.request.get('id')
-        word = Word.get_by_id(id)
-        word.vote = word.vote - 1
-        word.save()
+    def methodWordDelete(self):
+        
+        
+        id = self.request.get('id', '')
+        l = self.request.get('l')
+        n = self.request.get('n')
+        
+        nc = self.request.get('nc')
+        lc = self.request.get('lc')
+        
+        wc = core.WordCore()
+        if id != '':
+            ok, error, error_message = wc.deleteByKey(id)
+        else:
+            ok, error, error_message = wc.deleteByWords(l, n, lc, nc)
+        
+        if ok:
+            self.showResult("delete", "delete was success")
+        else:
+            self.showErrorResult(error, error_message)
+        
         #todo :remove if vote 1
-
+    
 
 
     def getLangIds(self):
@@ -377,6 +393,8 @@ class WordCtrl(webapp.RequestHandler):
         
         if method == 'add':
             self.methodAddWord()
+        if method == 'del':
+            self.methodWordDelete()
         elif method == 'trans':
             self.methodTrans()
         elif method == 'show':
