@@ -350,8 +350,13 @@ class WordCtrl(webapp.RequestHandler):
     def showResult(self, data_name, data):
         self.showResultEx(data_name, data, 0, "ok")
     
-    def methodWordDelete(self):
-        
+    # get parameters 
+    # l - [TEXT] learn word
+    # n - [TEXT] native word
+    # lc - [TEXT] learn langugage [CS, EN, .. ]
+    # nc - [TEXT] native langugage [CS, EN, .. ]
+    # id - [TEXT] id of word if is already in db (the l,n,lc,nc will be ignored)
+    def methodWordDelete(self):        
         
         id = self.request.get('id', '')
         l = self.request.get('l')
