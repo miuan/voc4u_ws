@@ -237,11 +237,12 @@ class WordCore():
         we2 = self.entityLoadByParams(word2, w2l,"")
          
         word = Word.all(keys_only=False)
-        word.filter("word1 =", we1[0])
-        word.filter("word2 =", we2[0])
-        word = word.fetch(1)
+        if (len(we1) > 0) and (len(we2) > 0):
+            word.filter("word1 =", we1[0])
+            word.filter("word2 =", we2[0])
+            word = word.fetch(1)
         
-        self.deleteByObject(word[0])
+            self.deleteByObject(word[0])
         
         return True, "", ""
     
